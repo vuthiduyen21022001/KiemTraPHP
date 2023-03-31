@@ -21,6 +21,14 @@ class Product
     }
 
     public function save(){
+        $file_temp = $this->picture['tmp_name'];
+        $user_file = $this->picture['name'];
+        $timestamp = date("Y").date("m").date("d").date("h").date("i").date("s");
+        $filepath = "uploads/".$timestamp.$user_file;
+        if(move_uploaded_file($file_temp, $filepath) == false){
+            return false;
+        }
+        
         $db= new Db();
         $sql = "INSERT INTO product (ProductName, CateID, Price, Quantity, Description , Picture) VALUES 
         ('$this->productName' , '$this->cateID' ,'$this->price' ,'$this->quantity' ,'$this->description', '$this->picture')";

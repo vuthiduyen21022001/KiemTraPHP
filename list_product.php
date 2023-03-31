@@ -32,6 +32,7 @@
     ?>
     <?php
         include_once("header.php");
+        $prods = Product::list_product();
     ?>
 
 

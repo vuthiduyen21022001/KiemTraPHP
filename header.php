@@ -2,13 +2,27 @@
 <html lang="vi">
     <head>
         <meta charset="utf-8">
-        <meta name="author" content="nguyenminhchien" />
+        <meta name="author" content="Nhóm_6" />
         <link href="site.css" rel="stylesheet" />
+        <link href="/public/css/style.css" rel="stylesheet" />
         <title>Project training - website bán hàng </title>
     </head>
     <body>
         <div id="wrapper">
             <h2>Project training - Xây dựng website bán hàng</h2>
+            <h3>Nhóm 6</h3>
+            <?php
+                // session_start();
+                if(isset($_SESSION['user'])!="")
+                {
+                    echo "<h2>Xin chao: ".$_SESSION['user']."<a href='./..//logout.php'> Logout</a></h2>";
+
+                }
+                else{
+                    echo "<h2>Ban chua dang nhap <a href='./../login.php'> Login</a>-<a
+                    href='./..//register.php'>Register</a></h2>";
+                }
+            ?>
         </div>
    <!-- Topbar Start -->
    <div class="container-fluid">
