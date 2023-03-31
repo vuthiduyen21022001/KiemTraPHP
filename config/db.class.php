@@ -2,7 +2,7 @@
     class Db
     {
         protected static $connection;
-        public function connnect(){
+        public function connect(){
             if (!isset(self::$connection)) {
                 $config = parse_ini_file("config.ini");
                 self::$connection =  new mysqli("localhost", $config["username"], $config["password"], $config["databasename"]);
@@ -15,10 +15,10 @@
         }
 
         public function query_execute($queryString){
-            $connection = $this->connnect();
-
+            $connection = $this->connect();
+            $connection->query("SET NAMES utf8");
             $result = $connection->query($queryString);
-            $connection->close();
+            // $connection->close();
             return $result;
         }
 

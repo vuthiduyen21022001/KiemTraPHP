@@ -36,6 +36,13 @@ class Product
         $result = $db->select_to_array($sql);
         return $result;
     }
+    public static function list_product_by_cateId($cateid){
+        $db= new Db();
+        $sql = "SELECT * FROM product WHERE CateID='$cateid'";
+        $result = $db->select_to_array($sql);
+        return $result;
+    }
+
 
     public static function list_category(){
         $db= new Db();
@@ -44,7 +51,6 @@ class Product
         $result = $db->select_to_array($sql);
         return $result;
     }
-
 
 }
 
