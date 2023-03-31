@@ -1,3 +1,5 @@
+<link href="/public/css/site.css" rel="stylesheet" />
+<link href="/public/css/style.css" rel="stylesheet" />
 <!-- Footer Start -->
 <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
         <div class="row px-xl-5 pt-5">

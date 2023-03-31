@@ -13,7 +13,7 @@
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -28,40 +28,61 @@
 
 <body>
     <?php
-        require_once("entities/product.class.php");
+    require_once("entities/product.class.php");
+    require_once("entities/category.class.php");
     ?>
+
     <?php
-        include_once("header.php");
+    include_once("header.php");
+    if (!isset($_GET["cateid"])) {
+        $prods = Product::list_product();
+    } else {
+        $cateid = $_GET["cateid"];
+        $prods = Product::list_product_by_cateId($cateid);
+    }
+    $cates = Category::list_category();
     ?>
 
 
-<div class="container-fluid pt-5 pb-3">
+    <div class="container-fluid pt-5 pb-3">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Featured Products</span></h2>
-        <div class="row px-xl-5">
-            <div class="list-group list-group-horizontal">
+        <div class="d-flex flex-row">
+            <div class="row">
+                <div>Danh Mục</div>
+                <div class="list-group">
                     <?php
-                        include_once("header.php");
-                        $prods= Product::list_product();
+                    foreach ($cates as $item) {
+                        echo "<a 
+                          href=list_product.php?cateid=" . $item["CateID"] . "
+                          class='list-group-item list-group-item-action'>" . $item["CategoryName"] . "</a>";
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class="row ml-5">
+                <div class="list-group list-group-horizontal">
+                    <?php
+                    include_once("header.php");
+                    // $prods = Product::list_product();
+                    foreach ($prods as $item) { ?>
 
-                        foreach ($prods as $item) { ?>
-
-                            <div class="product-item bg-light mb-4">
+                        <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
-                                <?php echo " <img style='width:250px; height: 200px;'  src=".$item["Picture"]." >"; ?>
-                             
+                                <?php echo " <img style='width:250px; height: 200px;'  src=" . $item["Picture"] . " >"; ?>
+
                                 <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="shopping_cart.php?id=<?php echo $item["ProductID"]; ?>"><i class=" fa fa-shopping-cart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="product_detail.php?id=<?php echo $item["ProductID"]; ?>"><i class="fa fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="text-center py-4">
-                            <?php echo "<h3> ".$item["ProductName"]." </h3>"; ?>
-                                <div >
-                                    <?php echo "<h5> Giá: ".$item["Price"]."</h5>"; 
-                                     echo "<h6> Số lượng: ".$item["Quantity"]."</h6>";
-                                     echo "<p> Mô tả: ".$item["Description"]." </p>"; ?>
+                                <?php echo "<h3> " . $item["ProductName"] . " </h3>"; ?>
+                                <div>
+                                    <?php echo "<h5> Giá: " . $item["Price"] . "</h5>";
+                                    echo "<h6> Số lượng: " . $item["Quantity"] . "</h6>";
+                                    echo "<p> Mô tả: " . $item["Description"] . " </p>"; ?>
 
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center mb-1">
@@ -74,18 +95,41 @@
                                 </div>
                             </div>
                         </div>
-                       <?php } ?>
-
-                       <br>
+                        <div class="col-sm-9">
+                            <h3>Sản phẩm cửa hàng</h3><br>
+                            <div class="row">
+                                <?php
+                                foreach ($prods as $item) {
+                                ?>
+                                    <div class="col-sm-4">
+                                        <a href="/lab07/product_detail.php?id=<?php echo $item["ProductID"]; ?>">
+                                            <img src="<?php echo "/shopping.card.php/" . $item["Picture"]; ?>" class="img-responsive" style="width:100%" alt="Image">
+                                        </a>
+                                        <p class="text-danger"><?php echo $item["ProductName"]; ?></p>
+                                        <p class="text-info"><?php echo $item["Price"]; ?></p>
+                                        <p>
+                                            <button type="button" class="btn btn-primary" onclick="location.href='/lab07/shopping_cart.php?id=<?php echo
+                                            $item["ProductID"]; ?>'">Mua hàng</button>
+                                        </p>
+                                    </div>
+                                <?php } ?>
+                        </div>
+                </div>
             </div>
+        <?php } ?>
+
+        <br>
         </div>
+    </div>
+    </div>
+
     </div>
 
 
     <?php
     include_once("footer.php");
     ?>
-    
+
 
 
     <!-- Back to Top -->

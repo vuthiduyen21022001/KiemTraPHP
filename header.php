@@ -2,13 +2,27 @@
 <html lang="vi">
     <head>
         <meta charset="utf-8">
-        <meta name="author" content="nguyenminhchien" />
-        <link href="site.css" rel="stylesheet" />
+        <meta name="author" content="nhom06" />
+        <link href="/public/css/site.css" rel="stylesheet" />
+        <link href="/public/css/style.css" rel="stylesheet" />
         <title>Project training - website bán hàng </title>
     </head>
     <body>
         <div id="wrapper">
             <h2>Project training - Xây dựng website bán hàng</h2>
+            <h3>Nhóm 06_CMD</h3>
+            <?php
+                // session_start();
+                if(isset($_SESSION['user'])!="")
+                {
+                    echo "<h2>Xin chao: ".$_SESSION['user']."<a href='./..//logout.php'> Logout</a></h2>";
+
+                }
+                else{
+                    echo "<h2>Ban chua dang nhap <a href='./../login.php'> Login</a>-<a
+                    href='./..//register.php'>Register</a></h2>";
+                }
+            ?>
         </div>
    <!-- Topbar Start -->
    <div class="container-fluid">
@@ -101,8 +115,8 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="/Lab03/list_product.php" class="nav-item nav-link active">Sản Phẩm</a>
-                            <a href="/Lab03/add_product.php" class="nav-item nav-link">Thêm Sản phẩm</a>
+                            <a href="list_product.php" class="nav-item nav-link active">Sản Phẩm</a>
+                            <a href="add_product.php" class="nav-item nav-link">Thêm Sản phẩm</a>
                             <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
